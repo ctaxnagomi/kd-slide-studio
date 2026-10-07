@@ -31,11 +31,15 @@
       ["featured", "FeaturedDevelopers"], ["bulletin", "BulletinBoard"], ["xfeed", "x Feed"],
       ["hackathon", "UpcomingHackathon"], ["qualifier", "AgenticQualifier2026"]
     ]},
-    { id: "PARENTITEM2", page: "ParentPage2", title: "CSR / Learning", items: [
+    { id: "PARENTITEM2", page: "ParentPage2", title: "Community", items: [
+      ["community-home", "CommunityHome"], ["events", "Events"], ["guilds", "Guilds"],
+      ["showcase", "Showcase"], ["bounties", "Bounties"], ["jobs", "Jobs"]
+    ]},
+    { id: "PARENTITEM3", page: "ParentPage3", title: "CSR / Learning", items: [
       ["csr", "CSRProjects"], ["volunteer", "VolunteerForm"], ["vision", "Vision & Goals"],
       ["courses", "CoursesHTML-CSS-JS"], ["milestone", "x Milestone"], ["gallery", "Gallery"]
     ]},
-    { id: "PARENTITEM3", page: "ParentPage3", title: "Studio", items: [
+    { id: "PARENTITEM4", page: "ParentPage4", title: "Studio", items: [
       ["slides", "SlideStudio"], ["present", "PresentMode"], ["repo", "RepoNotes"]
     ]}
   ];
