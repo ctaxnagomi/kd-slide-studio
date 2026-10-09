@@ -312,6 +312,7 @@
     setDeck(demoDeck());
     $("#dropHint").textContent = "click or drop a file";
   });
+  if ($("#btnCopyFormat")) $("#btnCopyFormat").addEventListener("click", copyDeckFormat);
 
   // themes
   function applyTheme(name, silent) {
@@ -347,6 +348,40 @@
   var swipe = null;
 
   window.KD.sizeInk = sizeInk;
+
+  function copyDeckFormat() {
+    if (!window.KD.deck || !window.KD.deck.slides || window.KD.deck.slides.length === 0) return;
+    var lines = [];
+    window.KD.deck.slides.forEach(function (sl, i) {
+      lines.push("Slide " + (i + 1) + ": " + (sl.title || "Untitled"));
+      if (sl.kicker) lines.push(sl.kicker);
+      if (sl.body && sl.body.length) {
+        sl.body.forEach(function (b) { lines.push("- " + b); });
+      }
+      if (sl.notes) lines.push("Notes: " + sl.notes);
+      lines.push("---");
+    });
+    var text = lines.join("
+");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        toast("Copied deck format to clipboard");
+      }, function () {
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); toast("Copied deck format to clipboard"); } catch (e) { toast("Copy failed"); }
+    document.body.removeChild(ta);
+  }
+
   function sizeInk() {
     var r = pres.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
