@@ -17,4 +17,4 @@ desktop.ini
 # editors / logs
 *.log
 .idea/
-.vscode/
+.vscode/.wrangler/
