@@ -753,3 +753,7 @@ button.doodle-box:hover,.card:hover,.posts li:hover,.checklist li:hover{
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.05s !important;}
 }
+
+.slide-body li{word-wrap:break-word;overflow-wrap:anywhere;}
+.slide-title{word-wrap:break-word;overflow-wrap:anywhere;}
+.slide.fit{height:100%;overflow:auto;}
