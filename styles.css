@@ -423,7 +423,9 @@ button.doodle-box:hover,.card:hover,.posts li:hover,.checklist li:hover{
   display:none;flex-direction:column;justify-content:center;
   padding:8vh 9vw 14vh;
   animation:slideIn .4s ease both;
+  overflow:auto;overscroll-behavior:contain;
 }
+.slide.fit{justify-content:flex-start;padding:8vh 9vw 16vh;}
 .slide.is-on{display:flex;}
 @keyframes slideIn{from{opacity:0;transform:translateX(26px) rotate(.3deg);}to{opacity:1;transform:none;}}
 .slide-no{

@@ -368,7 +368,7 @@
     deckEl.innerHTML = "";
     deck.slides.forEach(function (s, i) {
       var art = document.createElement("article");
-      art.className = "slide" + (i === cur ? " is-on" : "");
+      art.className = "slide fit" + (i === cur ? " is-on" : "");
       var html = '<span class="slide-no mono">' + String(i + 1).padStart(2, "0") + " / " + String(deck.slides.length).padStart(2, "0") + "</span>";
       if (s.kicker) html += '<div class="slide-kicker">' + esc(s.kicker) + "</div>";
       html += '<h2 class="slide-title">' + esc(s.title || "Untitled") + "</h2>";
