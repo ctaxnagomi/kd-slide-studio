@@ -362,10 +362,9 @@
     toastTimer = setTimeout(function () { toastEl.classList.remove("is-on"); }, 2200);
   }
 
-  function copyDeckFormat() {
-    if (!window.KD.deck || !window.KD.deck.slides || window.KD.deck.slides.length === 0) return;
+  function deckToStudioText() {
     var lines = [];
-    window.KD.deck.slides.forEach(function (sl, i) {
+    (window.KD.deck.slides || []).forEach(function (sl, i) {
       lines.push("Slide " + (i + 1) + ": " + (sl.title || "Untitled"));
       if (sl.kicker) lines.push(sl.kicker);
       if (sl.body && sl.body.length) {
@@ -374,10 +373,43 @@
       if (sl.notes) lines.push("Notes: " + sl.notes);
       lines.push("---");
     });
-    var text = lines.join("\n");
+    return lines.join("\n");
+  }
+
+  function copyDeckFormat() {
+    var deck = window.KD.deck;
+    if (!deck || !deck.slides || !deck.slides.length) {
+      toast("Load a deck first, then copy.");
+      return;
+    }
+    var header = [
+      "You are writing slide content for KRACKED_OS Slide Studio.",
+      "Return slides in this exact plain-text format so they parse cleanly:",
+      "",
+      "Slide 1: <short title>",
+      "<one-line kicker>",
+      "- bullet point",
+      "- bullet point",
+      "Notes: <optional speaker notes>",
+      "---",
+      "Slide 2: <short title>",
+      "  ... and so on ...",
+      "",
+      "Rules:",
+      "- Maximum 15 slides.",
+      "- Keep each title under 60 characters.",
+      "- Use 3 to 5 bullets per slide, one idea per bullet.",
+      "- Separate every slide with a line containing only ---",
+      "- Put speaker notes on a line starting with 'Notes:'.",
+      "- Plain text only, no markdown code fences, no numbering of bullets.",
+      "",
+      "Here is my current deck. Rebuild or improve it using the format above:",
+      ""
+    ].join("\n");
+    var text = header + "\n" + deckToStudioText() + "\n";
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        toast("Copied deck format to clipboard");
+        toast("Copied Slide Studio prompt + deck");
       }, function () {
         fallbackCopy(text);
       });
@@ -390,7 +422,7 @@
     ta.value = text;
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand("copy"); toast("Copied deck format to clipboard"); } catch (e) { toast("Copy failed"); }
+    try { document.execCommand("copy"); toast("Copied Slide Studio prompt + deck"); } catch (e) { toast("Copy failed"); }
     document.body.removeChild(ta);
   }
 
