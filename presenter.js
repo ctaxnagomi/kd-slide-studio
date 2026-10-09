@@ -172,6 +172,16 @@
   function xmlTexts(xml) {
     var out = [], re = /<a:t[^>]*>([\s\S]*?)<\/a:t>/g, m;
     while ((m = re.exec(xml))) out.push(decodeEntities(m[1].replace(/<[^>]+>/g, "")));
+    // also catch p:txBody and a:p/a:r
+    if (out.length === 0) {
+      var re2 = /<p:txBody[\s\S]*?(<a:t[\s\S]*?<\/a:t>)|<a:body[\s\S]*?(<a:t[\s\S]*?<\/a:t>)|<a:t[\s\S]*?<\/a:t>/g;
+      var seen = {};
+      var re3 = /<a:t[^>]*>([\s\S]*?)<\/a:t>/g;
+      while ((m = re3.exec(xml))) {
+        var t = decodeEntities(m[1].replace(/<[^>]+>/g, ""));
+        if (!seen[t]) { out.push(t); seen[t] = true; }
+      }
+    }
     return out;
   }
 
