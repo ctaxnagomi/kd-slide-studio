@@ -171,10 +171,17 @@
 
   function xmlTexts(xml) {
     var out = [], seen = {};
-    var re = /<(?:a|p|w):t[^>]*>([\s\S]*?)<\/(?:a|p|w):t>/g, m;
+    var re = /<(?:a|p|w|c|d|m):t[^>]*>([\s\S]*?)<\/(?:a|p|w|c|d|m):t>/g, m;
     while ((m = re.exec(xml))) {
       var t = decodeEntities(m[1].replace(/<[^>]+>/g, ""));
       if (t.trim() && !seen[t]) { out.push(t); seen[t] = true; }
+    }
+    if (out.length === 0) {
+      var re2 = /<text[^>]*>([\s\S]*?)<\/text>/gi;
+      while ((m = re2.exec(xml))) {
+        var t2 = decodeEntities(m[1].replace(/<[^>]+>/g, ""));
+        if (t2.trim() && !seen[t2]) { out.push(t2); seen[t2] = true; }
+      }
     }
     return out;
   }
