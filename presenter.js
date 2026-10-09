@@ -349,6 +349,19 @@
 
   window.KD.sizeInk = sizeInk;
 
+  var toastEl = null, toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement("div");
+      toastEl.className = "kd-toast mono";
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.classList.add("is-on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("is-on"); }, 2200);
+  }
+
   function copyDeckFormat() {
     if (!window.KD.deck || !window.KD.deck.slides || window.KD.deck.slides.length === 0) return;
     var lines = [];

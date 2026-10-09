@@ -757,3 +757,15 @@ button.doodle-box:hover,.card:hover,.posts li:hover,.checklist li:hover{
 .slide-body li{word-wrap:break-word;overflow-wrap:anywhere;}
 .slide-title{word-wrap:break-word;overflow-wrap:anywhere;}
 .slide.fit{height:100%;overflow:auto;}
+
+/* ---------- TOAST ---------- */
+.kd-toast{
+  position:fixed;left:50%;bottom:calc(28px + var(--sab));
+  transform:translate(-50%,12px);z-index:200;
+  background:#0a1214;color:#eaf6f3;
+  border:2px solid #eaf6f3;border-radius:12px 9px 13px 8px;
+  padding:9px 16px;font-size:.78rem;letter-spacing:.04em;
+  opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;
+  box-shadow:4px 5px 0 rgba(10,18,20,.5);
+}
+.kd-toast.is-on{opacity:1;transform:translate(-50%,0);}
