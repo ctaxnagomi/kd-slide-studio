@@ -769,3 +769,23 @@ button.doodle-box:hover,.card:hover,.posts li:hover,.checklist li:hover{
   box-shadow:4px 5px 0 rgba(10,18,20,.5);
 }
 .kd-toast.is-on{opacity:1;transform:translate(-50%,0);}
+
+/* ---------- SAMPLE DECK ROW ---------- */
+.sample-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;}
+a.doodle-btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#0a1214;cursor:pointer;}
+.sample-row .doodle-btn,.sample-row .ghost-btn{cursor:pointer;}
+
+/* ---------- FIT SLIDES (no scroll on typical decks) ---------- */
+.slide.fit{
+  justify-content:flex-start;
+  overflow:auto;
+  padding:clamp(52px,7vh,84px) 8vw calc(64px + var(--sab));
+}
+.slide.fit .slide-title{font-size:clamp(1.7rem,4.4vw,3.6rem);margin-bottom:.42em;}
+.slide.fit .slide-kicker{margin-bottom:.7em;}
+.slide.fit .slide-body{gap:.3em;max-width:56ch;}
+.slide.fit .slide-body li{font-size:clamp(1rem,2.15vw,1.55rem);line-height:1.28;}
+@media (max-height:620px){
+  .slide.fit .slide-title{font-size:clamp(1.5rem,4vw,2.6rem);}
+  .slide-body li{font-size:clamp(.98rem,2.2vw,1.4rem);}
+}

@@ -314,6 +314,27 @@
   });
   if ($("#btnCopyFormat")) $("#btnCopyFormat").addEventListener("click", copyDeckFormat);
 
+  var btnLoadSample = $("#btnLoadSample");
+  if (btnLoadSample) btnLoadSample.addEventListener("click", async function () {
+    btnLoadSample.disabled = true;
+    deckStatus.textContent = "loading sample deck …";
+    deckStatus.style.color = "";
+    try {
+      var r = await fetch("assets/decks/kd-workshop-week2.md", { cache: "no-cache" });
+      if (!r.ok) throw new Error("http " + r.status);
+      var txt = await r.text();
+      var deck = parseText(txt);
+      if (!deck) throw new Error("empty");
+      deck.name = "WPC 2 - Zero Prompts x Dual-Agent + JEV";
+      setDeck(deck);
+      toast("Loaded sample deck");
+    } catch (e) {
+      fail("Could not load the sample deck.");
+    } finally {
+      btnLoadSample.disabled = false;
+    }
+  });
+
   // themes
   function applyTheme(name, silent) {
     window.KD.theme = name;
